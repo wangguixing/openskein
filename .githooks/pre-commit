@@ -1,0 +1,5 @@
+#!/bin/sh
+# openskein pre-commit gate: typecheck + unit tests
+set -e
+npm run typecheck
+npm test

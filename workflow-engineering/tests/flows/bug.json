@@ -1,0 +1,71 @@
+{
+  "schema": 2,
+  "id": "bug",
+  "version": "2.0.0",
+  "summary": "v2 原语试点：人工报告(await) → 分诊(branch) → 诊断 → 复现 → 修复 → 审查(include) → 人工确认(await) → 提交",
+  "params": [{ "name": "bug", "required": true }],
+  "state": {
+    "findings": { "reducer": "append" },
+    "tier": { "reducer": "replace" },
+    "meta": { "reducer": "merge" }
+  },
+  "steps": [
+    {
+      "id": "report",
+      "kind": "human",
+      "await": { "kind": "human", "question": "请描述缺陷现象与复现步骤", "schema": { "type": "string" } },
+      "cc": { "type": "user_ack" },
+      "next": ["triage"]
+    },
+    {
+      "id": "triage",
+      "kind": "skill",
+      "skill": "triage",
+      "cc": { "type": "user_ack" },
+      "branch": { "hotfix": "fix", "default": "diagnose" }
+    },
+    {
+      "id": "diagnose",
+      "kind": "skill",
+      "skill": "diagnosing-bugs",
+      "cc": { "type": "user_ack" },
+      "next": ["reproduce"]
+    },
+    {
+      "id": "reproduce",
+      "kind": "skill",
+      "skill": "prototype",
+      "cc": { "type": "user_ack" },
+      "effects": [{ "kind": "write_artifact", "path": "repros/{instanceId}.md", "content": "" }],
+      "next": ["fix"]
+    },
+    {
+      "id": "fix",
+      "kind": "skill",
+      "skill": "tdd",
+      "cc": { "type": "effect_ok", "effect": "load_skill" },
+      "next": ["review"]
+    },
+    {
+      "id": "review",
+      "kind": "workflow",
+      "workflow": "review",
+      "cc": { "type": "effect_ok", "effect": "launch_workflow" },
+      "next": ["approve"]
+    },
+    {
+      "id": "approve",
+      "kind": "human",
+      "await": { "kind": "human", "question": "确认修复范围并提交？", "schema": { "type": "boolean" } },
+      "cc": { "type": "user_ack" },
+      "branch": { "yes": "commit", "no": "fix" }
+    },
+    {
+      "id": "commit",
+      "kind": "tool",
+      "tool": "gen-commit",
+      "cc": { "type": "user_ack" },
+      "next": ["done"]
+    }
+  ]
+}

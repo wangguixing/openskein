@@ -1,0 +1,33 @@
+{
+  "schema": 2,
+  "id": "review",
+  "version": "2.0.0",
+  "summary": "v2 原语试点：审查 → 人工确认（await 中断）→ 通过 / 返工回环",
+  "state": {
+    "decision": { "reducer": "replace" },
+    "comments": { "reducer": "append" }
+  },
+  "steps": [
+    {
+      "id": "review",
+      "kind": "skill",
+      "skill": "critic",
+      "cc": { "type": "effect_ok", "effect": "load_skill" },
+      "next": ["approve"]
+    },
+    {
+      "id": "approve",
+      "kind": "human",
+      "await": { "kind": "human", "question": "确认审查结论？", "schema": { "type": "boolean" } },
+      "cc": { "type": "user_ack" },
+      "branch": { "approve": "done", "revise": "revise" }
+    },
+    {
+      "id": "revise",
+      "kind": "skill",
+      "skill": "tdd",
+      "cc": { "type": "user_ack" },
+      "next": ["review"]
+    }
+  ]
+}

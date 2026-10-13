@@ -1,0 +1,11 @@
+[
+  { "type": "start", "instanceId": "sim-bug", "params": { "bug": "登录失败" }, "data": { "tier": "unknown", "meta": { "source": "user" } }, "at": "2026-10-12T00:00:00Z" },
+  { "type": "advance", "step": "report", "evidence": { "ok": true }, "patch": { "findings": ["现象：登录 500"], "meta": { "reported": true } }, "at": "2026-10-12T00:01:00Z" },
+  { "type": "resume", "evidence": { "ok": true }, "at": "2026-10-12T00:02:00Z" },
+  { "type": "advance", "step": "triage", "evidence": { "ok": true }, "branch": "hotfix", "patch": { "tier": "hotfix" }, "at": "2026-10-12T00:03:00Z" },
+  { "type": "advance", "step": "fix", "evidence": { "ok": true }, "patch": { "findings": ["根因：空指针"] }, "at": "2026-10-12T00:04:00Z" },
+  { "type": "advance", "step": "review", "evidence": { "ok": true }, "at": "2026-10-12T00:05:00Z" },
+  { "type": "advance", "step": "approve", "evidence": { "ok": true }, "at": "2026-10-12T00:06:00Z" },
+  { "type": "resume", "evidence": { "ok": true }, "branch": "yes", "patch": { "meta": { "approved": true } }, "at": "2026-10-12T00:07:00Z" },
+  { "type": "advance", "step": "commit", "evidence": { "ok": true }, "at": "2026-10-12T00:08:00Z" }
+]

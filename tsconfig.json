@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@openskein/core": ["./packages/core/src/index.ts"],
+      "@openskein/catalog": ["./packages/catalog/src/index.ts"],
+      "@openskein/opencode": ["./packages/opencode/src/index.ts"],
+      "@openskein/cli": ["./packages/cli/src/cli.ts"],
+      "@openskein/mcp": ["./packages/mcp/src/index.ts"],
+      "@openskein/mcp/handlers": ["./packages/mcp/src/handlers.ts"]
+    }
+  },
+  "include": ["packages/*/src", "packages/*/test"]
+}

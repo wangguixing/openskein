@@ -1,0 +1,35 @@
+{
+  "name": "openskein",
+  "private": true,
+  "version": "0.1.3",
+  "description": "声明式 agent/skill/workflow 状态机内核 + 适配层",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "check:manifest": "node scripts/check-manifest.mjs",
+    "check:manifests": "node scripts/reset-manifests.mjs --check",
+    "fix:manifests": "node scripts/reset-manifests.mjs",
+    "version:check": "node scripts/version.mjs",
+    "version:auto": "node scripts/version.mjs --bump",
+    "typecheck": "node node_modules/typescript/lib/tsc.js -p tsconfig.json",
+    "test": "node --conditions=development --test",
+    "clean": "node -e \"const fs=require('fs');for(const p of ['core','catalog','opencode','cli','mcp'])fs.rmSync('packages/'+p+'/dist',{recursive:true,force:true});\"",
+    "check:version": "node scripts/check-version.mjs",
+    "build:packages": "node scripts/build.mjs",
+    "build": "npm run check:manifest && npm run typecheck && npm test && npm run clean && npm run build:packages && npm run check:version",
+    "hooks:install": "git config core.hooksPath .githooks",
+    "publish:all": "npm run build && node scripts/publish.mjs",
+    "release:auto": "npm run version:auto && npm run publish:all"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  }
+}

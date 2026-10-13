@@ -1,0 +1,12 @@
+{
+  "targets": [
+    { "kind": "skill", "dir": "skills", "layout": "skill-dir" },
+    { "kind": "skill", "dir": "my-skills", "layout": "skill-dir" },
+    { "kind": "skill", "dir": "my-engineering-skills", "layout": "skill-dir" },
+    { "kind": "skill", "dir": ".opencode/skills", "layout": "skill-dir" },
+    { "kind": "command", "dir": "commands", "layout": "flat-md" },
+    { "kind": "agent", "dir": "agents", "layout": "flat-md" },
+    { "kind": "workflow", "dir": "workflows", "layout": "flat-md" },
+    { "kind": "workflow", "dir": ".opencode/workflows", "layout": "flat-md" }
+  ]
+}

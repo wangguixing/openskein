@@ -1,0 +1,40 @@
+{
+  "name": "@openskein/opencode",
+  "version": "0.1.3",
+  "description": "openskein 的 opencode 适配层（插件 + skein_* 工具）",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "development": "./src/index.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "node -e \"console.error('请勿直接 npm publish；请用 npm run publish:all（含完整构建+校验）');process.exit(1)\""
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@openskein/core": "^0.1.3",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@opencode-ai/plugin": ">=1.17.0"
+  },
+  "devDependencies": {
+    "@opencode-ai/plugin": "1.17.15"
+  }
+}
